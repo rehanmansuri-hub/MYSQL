@@ -1,0 +1,217 @@
+-- =========================================================
+-- MYSQL CRUD PROJECT
+-- Student Management System
+-- =========================================================
+
+-- 1. DATABASE CREATE
+CREATE DATABASE IF NOT EXISTS student_management;
+
+USE student_management;
+
+
+-- =========================================================
+-- 2. TABLE CREATE
+-- =========================================================
+
+CREATE TABLE IF NOT EXISTS students (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    mobile VARCHAR(15),
+    course VARCHAR(50),
+    city VARCHAR(50),
+    age INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- =========================================================
+-- 3. CREATE / INSERT
+-- =========================================================
+
+INSERT INTO students
+(first_name, last_name, email, mobile, course, city, age)
+VALUES
+('Rehan', 'Mansuri', 'rehan@gmail.com', '9876543210', 'Python', 'Indore', 20),
+('Rahul', 'Sharma', 'rahul@gmail.com', '9876543211', 'Data Science', 'Bhopal', 21),
+('Aman', 'Khan', 'aman@gmail.com', '9876543212', 'AI ML', 'Indore', 22),
+('Priya', 'Verma', 'priya@gmail.com', '9876543213', 'Python', 'Ujjain', 20),
+('Neha', 'Patel', 'neha@gmail.com', '9876543214', 'Data Analytics', 'Dewas', 21);
+
+
+-- =========================================================
+-- 4. READ / SELECT
+-- =========================================================
+
+-- Show all students
+SELECT * FROM students;
+
+
+-- Show specific columns
+SELECT id, first_name, last_name, course, city
+FROM students;
+
+
+-- Find student by ID
+SELECT *
+FROM students
+WHERE id = 1;
+
+
+-- Find students from Indore
+SELECT *
+FROM students
+WHERE city = 'Indore';
+
+
+-- Find students studying Python
+SELECT *
+FROM students
+WHERE course = 'Python';
+
+
+-- Search student by name
+SELECT *
+FROM students
+WHERE first_name LIKE '%an%';
+
+
+-- =========================================================
+-- 5. UPDATE
+-- =========================================================
+
+-- Update city of student ID 1
+UPDATE students
+SET city = 'Bhopal'
+WHERE id = 1;
+
+
+-- Update course and mobile
+UPDATE students
+SET course = 'Machine Learning',
+    mobile = '9999999999'
+WHERE id = 3;
+
+
+-- Update multiple records
+UPDATE students
+SET city = 'Indore'
+WHERE course = 'Python';
+
+
+-- Check updated data
+SELECT * FROM students;
+
+
+-- =========================================================
+-- 6. DELETE
+-- =========================================================
+
+-- Delete one student
+DELETE FROM students
+WHERE id = 5;
+
+
+-- Check remaining students
+SELECT * FROM students;
+
+
+-- =========================================================
+-- 7. SORTING
+-- =========================================================
+
+-- Age ascending
+SELECT *
+FROM students
+ORDER BY age ASC;
+
+
+-- Age descending
+SELECT *
+FROM students
+ORDER BY age DESC;
+
+
+-- Name ascending
+SELECT *
+FROM students
+ORDER BY first_name ASC;
+
+
+-- =========================================================
+-- 8. LIMIT
+-- =========================================================
+
+-- First 3 students
+SELECT *
+FROM students
+LIMIT 3;
+
+
+-- =========================================================
+-- 9. COUNT
+-- =========================================================
+
+-- Total students
+SELECT COUNT(*) AS total_students
+FROM students;
+
+
+-- Students from Indore
+SELECT COUNT(*) AS indore_students
+FROM students
+WHERE city = 'Indore';
+
+
+-- =========================================================
+-- 10. GROUP BY
+-- =========================================================
+
+-- Students according to course
+SELECT course, COUNT(*) AS total_students
+FROM students
+GROUP BY course;
+
+
+-- Students according to city
+SELECT city, COUNT(*) AS total_students
+FROM students
+GROUP BY city;
+
+
+-- =========================================================
+-- 11. BETWEEN
+-- =========================================================
+
+-- Students age between 20 and 22
+SELECT *
+FROM students
+WHERE age BETWEEN 20 AND 22;
+
+
+-- =========================================================
+-- 12. IN
+-- =========================================================
+
+-- Students from selected cities
+SELECT *
+FROM students
+WHERE city IN ('Indore', 'Bhopal');
+
+
+-- =========================================================
+-- 13. NULL CHECK
+-- =========================================================
+
+-- Students whose mobile is available
+SELECT *
+FROM students
+WHERE mobile IS NOT NULL;
+
+
+-- =========================================================
+-- 14. FINAL DATA
+-- =========================================================
+
+SELECT * FROM students;
